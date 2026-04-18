@@ -16,8 +16,8 @@ jobs:
         uses: actions/checkout@v4
 
       - name: Create temp env file if missing
-        run:
-          if [! -f .env], then
+        run: |
+          if [ ! -f .env ]; then
             cp .env.example .env || true
           fi
 
@@ -39,7 +39,7 @@ jobs:
 
     steps:
       - name: Deploy app from server checkout
-        run: 
+        run: |
           cd /srv/very_loaded_api
           git fetch origin
           git reset --hard origin/main
