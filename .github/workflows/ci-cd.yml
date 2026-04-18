@@ -19,7 +19,7 @@ jobs:
         run:
           if [! -f .env], then
             cp .env.example .env || true
-          if
+          fi
 
       - name: Build test image
         run: docker compose build
