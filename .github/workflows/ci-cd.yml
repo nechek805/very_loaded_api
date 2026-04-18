@@ -28,7 +28,7 @@ jobs:
         run: docker compose run --rm api uv run ruff check .
 
       - name: Run Pytest
-        run: docker compose run --rm api uv run pytest
+        run: docker compose run --rm api uv run pytest -p no:cacheprovider
 
 
   cd:
