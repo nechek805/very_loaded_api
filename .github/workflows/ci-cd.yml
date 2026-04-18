@@ -48,6 +48,6 @@ jobs:
           docker compose up -d
 
       - name: Show running containers
-        run:
+        run: |
           cd /srv/very_loaded_api
           docker compose ps
