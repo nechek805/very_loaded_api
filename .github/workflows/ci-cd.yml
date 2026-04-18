@@ -25,10 +25,10 @@ jobs:
         run: docker compose build
 
       - name: Run Ruff
-        run: docker compose run --rm api ruff check .
+        run: docker compose run --rm api uv ruff check .
 
       - name: Run Pytest
-        run: docker compose run --rm api pytest
+        run: docker compose run --rm api uv pytest
 
 
   cd:
