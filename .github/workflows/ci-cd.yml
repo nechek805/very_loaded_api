@@ -51,26 +51,3 @@ jobs:
         run:
           cd /srv/very_loaded_api
           docker compose ps
-    
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-    
