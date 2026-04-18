@@ -5,4 +5,5 @@ app = FastAPI(title="Very loaded API")
 @app.get("/")
 def main():
     "This is main fun"
-    return {"message": "Hello from very loaded API"}
+    return {"message": "Hello from very loaded API. You can use it free"}
+
