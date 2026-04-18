@@ -1,0 +1,76 @@
+name: CI/CD
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+    branches: [main]
+
+jobs:
+  ci:
+    name: Lint and test
+    runs-on: [self-hosted, linux, x64]
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: Create temp env file if missing
+        run:
+          if [! -f .env], then
+            cp .env.example .env || true
+          if
+
+      - name: Build test image
+        run: docker compose build
+
+      - name: Run Ruff
+        run: docker compose run --rm api ruff check .
+
+      - name: Run Pytest
+        run: docker compose run --rm api pytest
+
+
+  cd:
+    name: Deploy
+    needs: ci
+    if: github.event_name == 'push' && github.ref == 'refs/heads/main'
+    runs-on: [self-hosted, linux, x64]
+
+    steps:
+      - name: Deploy app from server checkout
+        run: 
+          cd /srv/very_loaded_api
+          git fetch origin
+          git reset --hard origin/main
+          docker compose down
+          docker compose build
+          docker compose up -d
+
+      - name: Show running containers
+        run:
+          cd /srv/very_loaded_api
+          docker compose ps
+    
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+    
