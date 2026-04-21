@@ -23,9 +23,15 @@ jobs:
 
       - name: Build test image
         run: docker compose build
+      
+      - name: Start postgres for checks/tests
+        run: docker compose up -d postgres rabbitmq
 
       - name: Run Ruff
         run: docker compose run --rm api uv run ruff check .
+        
+      - name: Apply migrations
+        run: docker compose run --rm api uv run alembic upgrade head
 
       - name: Run Alembic check
         run: docker compose run --rm api uv run alembic check
