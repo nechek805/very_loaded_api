@@ -28,7 +28,7 @@ jobs:
         run: docker compose run --rm api uv run ruff check .
 
       - name: Run Alembic check
-        run: docker compose run --rm api run alembic check
+        run: docker compose run --rm api uv run alembic check
 
       - name: Run Pytest
         run: docker compose run --rm api uv run pytest -p no:cacheprovider
