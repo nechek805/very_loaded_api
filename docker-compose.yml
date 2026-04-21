@@ -6,20 +6,8 @@ services:
     volumes:
       - .:/app
     user: "1000:1000"
-    environment:
-      HOME: /tmp
-      UV_CACHE_DIR: /tmp/uv-cache
-
-      CELERY_BROKER_URL: amqp://guest:guest@rabbitmq:5672//
-      CELERY_RESULT_BACKEND: rpc://
-
-      #PostgreSQL
-      DATABASE_URL: ${DATABASE_URL}
-      POSTGRES_HOST: ${POSTGRES_HOST}
-      POSTGRES_PORT: ${POSTGRES_PORT}
-      POSTGRES_DB: ${POSTGRES_DB}
-      POSTGRES_USER: ${POSTGRES_USER}
-      POSTGRES_PASSWORD: ${POSTGRES_PASSWORD}
+    env_file:
+      - .env
     depends_on:
       rabbitmq:
         condition: service_healthy
@@ -32,20 +20,8 @@ services:
     volumes:
       - .:/app
     user: "1000:1000"
-    environment:
-      HOME: /tmp
-      UV_CACHE_DIR: /tmp/uv-cache
-
-      CELERY_BROKER_URL: amqp://guest:guest@rabbitmq:5672//
-      CELERY_RESULT_BACKEND: rpc://
-
-      #PostgreSQL
-      DATABASE_URL: ${DATABASE_URL}
-      POSTGRES_HOST: ${POSTGRES_HOST}
-      POSTGRES_PORT: ${POSTGRES_PORT}
-      POSTGRES_DB: ${POSTGRES_DB}
-      POSTGRES_USER: ${POSTGRES_USER}
-      POSTGRES_PASSWORD: ${POSTGRES_PASSWORD}
+    env_file:
+      - .env
     depends_on:
       rabbitmq:
         condition: service_healthy
@@ -68,10 +44,8 @@ services:
     image: postgres:17-alpine
     ports:
       - "${POSTGRES_PORT}:${POSTGRES_PORT}"
-    environment:
-      POSTGRES_DB: ${POSTGRES_DB}
-      POSTGRES_USER: ${POSTGRES_USER}
-      POSTGRES_PASSWORD: ${POSTGRES_PASSWORD}
+    env_file:
+      - .env
     volumes:
       - postgres_data:/var/lib/postgres/data
     healthcheck:
