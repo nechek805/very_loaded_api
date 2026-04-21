@@ -4,6 +4,7 @@ services:
     volumes:
       - .:/app
     user: "1000:1000"
+    restart: unless-stopped
     environment:
       HOME: /tmp
       UV_CACHE_DIR: /tmp/uv-cache
@@ -24,6 +25,7 @@ services:
     volumes:
       - .:/app
     user: "1000:1000"
+    restart: unless-stopped
     environment:
       HOME: /tmp
       UV_CACHE_DIR: /tmp/uv-cache
@@ -50,6 +52,7 @@ services:
     volumes:
       - .:/app
     user: "1000:1000"
+    restart: unless-stopped
     environment:
       HOME: /tmp
       UV_CACHE_DIR: /tmp/uv-cache
@@ -73,6 +76,7 @@ services:
 
   rabbitmq:
     image: rabbitmq:4-management
+    restart: unless-stopped
     ports:
       - "5672:5672" # AMQP
       - "15672:15672" # RabbitMQ UI 
@@ -84,6 +88,7 @@ services:
 
   postgres:
     image: postgres:17-alpine
+    restart: unless-stopped
     ports:
       - "${POSTGRES_PORT}:${POSTGRES_PORT}"
     environment:
