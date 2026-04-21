@@ -1,11 +1,7 @@
-from httpx import AsyncClient, ASGITransport
 import pytest
-from fastapi.testclient import TestClient
 from datetime import datetime, timedelta
 
-from src.core.database import get_db
 from src.task.models import Task
-from src.main import app
 
 
 @pytest.mark.asyncio
