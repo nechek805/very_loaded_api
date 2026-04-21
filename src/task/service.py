@@ -7,4 +7,4 @@ class TaskService:
         self.task_repository = TaskRepository(db)
 
     async def get_tasks(self):
-        return self.task_repository.get_tasks()
+        return await self.task_repository.get_tasks()

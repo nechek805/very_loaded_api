@@ -1,33 +1,37 @@
-from sqlalchemy.orm import DeclarativeBase, Session
-from contextlib import contextmanager
-from sqlalchemy import create_engine
+from sqlalchemy.orm import DeclarativeBase
+from sqlalchemy.ext.asyncio import (
+    AsyncSession,
+    async_sessionmaker,
+    create_async_engine,
+)
 
-import os
 
+from src.core.config import DATABASE_URL
 
 class Base(DeclarativeBase):
     pass
 
 
 
-DATABASE_URL=os.getenv("DATABASE_URL")
-if not DATABASE_URL:
-    raise ValueError("DATABASE_URL must be set in env")
-
-engine = create_engine(
+engine = create_async_engine(
     DATABASE_URL,
     echo=False,
     pool_pre_ping=True
     )
 
 
+AsyncSessionLocal = async_sessionmaker(
+    bind=engine,
+    class_=AsyncSession,
+    expire_on_commit=False,
+)
 
-@contextmanager
-def get_db():
-    with Session(engine) as session:
+
+async def get_db():
+    async with AsyncSession(engine) as session:
         try:
             yield session   
-            session.commit()
+            await session.commit()
         except Exception:
-            session.rollback()
+            await session.rollback()
             raise
