@@ -5,7 +5,6 @@ services:
       - .:/app
       - app_venv:/app/.venv
     user: "1000:1000"
-    restart: unless-stopped
     environment:
       HOME: /tmp
       UV_CACHE_DIR: /tmp/uv-cache
